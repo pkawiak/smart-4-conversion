@@ -10,11 +10,11 @@ define(['ConversionModel'], function (ConversionModel) {
 
         it('should sanitize input', function () {
             //given
-            model.updateNumberToConvert("29a");
+            model.updateNumberToConvert('29a');
 
             //when
             //then
-            expect(model.numberToConvert).toBe("29A");
+            expect(model.numberToConvert).toBe('29A');
         });
 
     });

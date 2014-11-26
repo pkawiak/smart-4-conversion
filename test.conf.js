@@ -25,6 +25,7 @@ require.config({
     paths: {
         ConversionController: 'src/modules/conversion/controller',
         ConversionModel: 'src/modules/conversion/model',
+        ConversionModelValidator: 'src/modules/conversion/validator',
         Converter: 'src/modules/conversion/converter'
     }
 

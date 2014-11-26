@@ -6,6 +6,7 @@ require.config({
         ConversionModule: '../src/modules/conversion/main',
         ConversionView: '../src/modules/conversion/view',
         ConversionModel: '../src/modules/conversion/model',
+        ConversionModelValidator: '../src/modules/conversion/validator',
         ConversionController: '../src/modules/conversion/controller',
         Converter: '../src/modules/conversion/converter'
     }
