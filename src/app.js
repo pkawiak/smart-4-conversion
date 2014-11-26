@@ -3,5 +3,5 @@ require(['jquery', 'ConversionModule'], function ($, ConversionModule) {
         var conversionModule = new ConversionModule();
 
         conversionModule.init($('.module-conversion'));
-    })
+    });
 });

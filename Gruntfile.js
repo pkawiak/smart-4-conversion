@@ -3,6 +3,9 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        jshint: {
+            all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
+        },
         requirejs: {
             compile: {
                 options: {
@@ -30,6 +33,7 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-karma');
 
