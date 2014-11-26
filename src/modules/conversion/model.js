@@ -5,32 +5,19 @@ define(function () {
     };
 
     ConversionModel.prototype.updateInputBase = function (newValue) {
-
-        if (this.inputBase !== newValue) {
-            this.inputBase = newValue;
-            this.notifyAboutChange();
-        }
+        this.assignValueToProperty(newValue, 'inputBase');
     };
 
     ConversionModel.prototype.updateOutputBase = function (newValue) {
-        if (this.outputBase !== newValue) {
-            this.outputBase = newValue;
-            this.notifyAboutChange();
-        }
+        this.assignValueToProperty(newValue, 'outputBase');
     };
 
     ConversionModel.prototype.updateNumberToConvert = function (newValue) {
-        if (this.numberToConvert !== newValue) {
-            this.numberToConvert = newValue;
-            this.notifyAboutChange();
-        }
+        this.assignValueToProperty(this.sanitizeToConvert(newValue), 'numberToConvert');
     };
 
     ConversionModel.prototype.updateConversionResult = function (newValue) {
-        if (this.conversionResult !== newValue) {
-            this.conversionResult = newValue;
-            this.notifyAboutChange();
-        }
+        this.assignValueToProperty(newValue, 'conversionResult');
     };
 
 
@@ -46,6 +33,23 @@ define(function () {
             handler = this.changeHandlers[i];
             handler();
         }
+    };
+
+    ConversionModel.prototype.sanitizeToConvert = function(newValue) {
+        return newValue ? newValue.toUpperCase() : '';
+    };
+
+    ConversionModel.prototype.assignValueToProperty = function (newValue, propertyName) {
+
+        var currentValue;
+
+        currentValue = this[propertyName];
+
+        if (currentValue !== newValue) {
+            this[propertyName] = newValue;
+            this.notifyAboutChange();
+        }
+
     };
 
     return ConversionModel;
