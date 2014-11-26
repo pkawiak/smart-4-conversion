@@ -66,7 +66,7 @@ define(['jquery'], function ($) {
     };
 
     View.prototype.renderErrorMessage = function (errorMessage) {
-        this.$conversionErrorContainer.append($('<span>').html(errorMessage).addClass('conversion-error-message'));
+        this.$conversionErrorContainer.append($('<div>').html(errorMessage).addClass('alert alert-danger'));
     };
 
     View.prototype.onModelChange = function () {
@@ -74,6 +74,13 @@ define(['jquery'], function ($) {
         this.$systemOutput.val(this.model.outputBase);
         this.$toConvert.val(this.model.numberToConvert);
         this.$conversionResult.html(this.model.conversionResult);
+
+        if (this.model.conversionResult) {
+            this.$conversionResult.show();
+        } else {
+            this.$conversionResult.hide();
+        }
+
     };
 
 
