@@ -8,7 +8,7 @@ define(function () {
         var multiplier,
             i,
             result = 0,
-            digits = input.split("");
+            digits = input.split('');
 
         for (i = 0; i < digits.length; i++) {
             multiplier = this.getMultiplierFromDigit(digits[digits.length - i - 1]);
@@ -22,10 +22,10 @@ define(function () {
     Converter.prototype.fromDecimal = function (input, base) {
 
         var rest = input,
-            result = "";
+            result = '';
 
         if (input === 0) {
-            return "0";
+            return '0';
         }
 
         while (rest !== 0) {

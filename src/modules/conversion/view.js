@@ -1,4 +1,4 @@
-define(["jquery"], function ($) {
+define(['jquery'], function ($) {
 
     var View = function (conversionController, conversionModel) {
         this.conversionController = conversionController;
@@ -9,12 +9,12 @@ define(["jquery"], function ($) {
 
     View.prototype.renderTo = function ($target) {
 
-        this.$conversionForm = $target.find(".conversion-form");
+        this.$conversionForm = $target.find('.conversion-form');
 
-        this.$systemInput = $target.find(".input-base");
-        this.$systemOutput = $target.find(".output-base");
-        this.$toConvert = $target.find(".to-convert");
-        this.$conversionResult = $target.find(".conversion-result");
+        this.$systemInput = $target.find('.input-base');
+        this.$systemOutput = $target.find('.output-base');
+        this.$toConvert = $target.find('.to-convert');
+        this.$conversionResult = $target.find('.conversion-result');
 
         this.$conversionForm.submit($.proxy(this.onFormSubmit, this));
 

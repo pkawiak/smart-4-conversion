@@ -1,4 +1,4 @@
-define(["ConversionView", "ConversionModel", "ConversionController", "Converter"], function (ConversionView, ConversionModel, ConversionController, Converter) {
+define(['ConversionView', 'ConversionModel', 'ConversionController', 'Converter'], function (ConversionView, ConversionModel, ConversionController, Converter) {
 
 
     var ConversionModule = function () {
