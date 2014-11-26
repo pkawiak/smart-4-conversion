@@ -1,11 +1,12 @@
-define(['ConversionView', 'ConversionModel', 'ConversionController', 'Converter'], function (ConversionView, ConversionModel, ConversionController, Converter) {
+define(['ConversionView', 'ConversionModel', 'ConversionController', 'Converter', 'ConversionModelValidator'], function (ConversionView, ConversionModel, ConversionController, Converter, ConversionModelValidator) {
 
 
     var ConversionModule = function () {
-        this.conversionModel = new ConversionModel();
+        this.model = new ConversionModel();
+        this.conversionModelValidator = new ConversionModelValidator(this.model);
         this.converter = new Converter();
-        this.conversionController = new ConversionController(this.conversionModel, this.converter);
-        this.conversionView = new ConversionView(this.conversionController, this.conversionModel);
+        this.controller = new ConversionController(this.model, this.converter);
+        this.conversionView = new ConversionView(this.controller, this.model, this.conversionModelValidator);
     };
 
     ConversionModule.prototype.init = function ($target) {

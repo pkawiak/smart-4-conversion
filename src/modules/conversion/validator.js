@@ -1,7 +1,7 @@
 define(function () {
 
-    var INPUT_BASE_INVALID_MESSAGE = 'Input Base should be positive integer.',
-        OUTPUT_BASE_INVALID_MESSAGE = 'Output Base should be positive integer.';
+    var INPUT_BASE_INVALID_MESSAGE = 'Input Base should be positive integer greater than 1',
+        OUTPUT_BASE_INVALID_MESSAGE = 'Output Base should be positive integer greater than 1';
 
     var ConversionModelValidator = function (model) {
         this.model = model;
@@ -17,7 +17,7 @@ define(function () {
     };
 
     ConversionModelValidator.prototype.validateInputBase = function () {
-        var valid = parseInt(this.model.inputBase) > 0;
+        var valid = parseInt(this.model.inputBase) > 1;
 
         if (!valid) {
             this.messages.push(INPUT_BASE_INVALID_MESSAGE);
@@ -27,7 +27,7 @@ define(function () {
     };
 
     ConversionModelValidator.prototype.validateOutputBase = function () {
-        var valid = parseInt(this.model.outputBase) > 0;
+        var valid = parseInt(this.model.outputBase) > 1;
 
         if (!valid) {
             this.messages.push(OUTPUT_BASE_INVALID_MESSAGE);

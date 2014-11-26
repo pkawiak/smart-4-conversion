@@ -1,10 +1,11 @@
 define(['jquery'], function ($) {
 
-    var View = function (conversionController, conversionModel) {
-        this.conversionController = conversionController;
-        this.conversionModel = conversionModel;
+    var View = function (conversionController, model, validator) {
+        this.controller = conversionController;
+        this.model = model;
+        this.validator = validator;
 
-        this.conversionModel.addChangeListener($.proxy(this.onModelChange, this));
+        this.model.addChangeListener($.proxy(this.onModelChange, this));
     };
 
     View.prototype.renderTo = function ($target) {
@@ -15,6 +16,7 @@ define(['jquery'], function ($) {
         this.$systemOutput = $target.find('.output-base');
         this.$toConvert = $target.find('.to-convert');
         this.$conversionResult = $target.find('.conversion-result');
+        this.$conversionErrorContainer = $target.find('.conversion-error-container');
 
         this.$conversionForm.submit($.proxy(this.onFormSubmit, this));
 
@@ -25,28 +27,53 @@ define(['jquery'], function ($) {
     };
 
     View.prototype.onSystemInputChange = function () {
-        this.conversionModel.updateInputBase(this.$systemInput.val());
+        this.model.updateInputBase(this.$systemInput.val());
     };
 
     View.prototype.onSystemOutputChange = function () {
-        this.conversionModel.updateOutputBase(this.$systemOutput.val());
+        this.model.updateOutputBase(this.$systemOutput.val());
     };
 
     View.prototype.onToConvertChange = function () {
-        this.conversionModel.updateNumberToConvert(this.$toConvert.val());
+        this.model.updateNumberToConvert(this.$toConvert.val());
     };
 
     View.prototype.onFormSubmit = function (event) {
         event.preventDefault();
 
-        this.conversionController.convert();
+        this.clearValidationErrors();
+
+        this.validator.validate();
+
+        if (this.validator.isValid) {
+            this.controller.convert();
+        } else {
+            this.displayValidationErrors();
+        }
+    };
+
+    View.prototype.clearValidationErrors = function () {
+        this.controller.clearResult();
+        this.$conversionErrorContainer.html('');
+    };
+
+    View.prototype.displayValidationErrors = function () {
+        var i;
+
+        for (i = 0; i < this.validator.messages.length; i++) {
+            this.renderErrorMessage(this.validator.messages[i]);
+        }
+    };
+
+    View.prototype.renderErrorMessage = function (errorMessage) {
+        this.$conversionErrorContainer.append($('<span>').html(errorMessage).addClass('conversion-error-message'));
     };
 
     View.prototype.onModelChange = function () {
-        this.$systemInput.val(this.conversionModel.inputBase);
-        this.$systemOutput.val(this.conversionModel.outputBase);
-        this.$toConvert.val(this.conversionModel.numberToConvert);
-        this.$conversionResult.html(this.conversionModel.conversionResult);
+        this.$systemInput.val(this.model.inputBase);
+        this.$systemOutput.val(this.model.outputBase);
+        this.$toConvert.val(this.model.numberToConvert);
+        this.$conversionResult.html(this.model.conversionResult);
     };
 
 

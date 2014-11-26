@@ -1,6 +1,6 @@
 define(['ConversionController', 'ConversionModel', 'Converter'], function (ConversionController, ConversionModel, Converter) {
 
-    describe('Conversion Spec', function () {
+    describe('Conversion Controller Spec', function () {
 
         var controller,
             model,
@@ -80,6 +80,18 @@ define(['ConversionController', 'ConversionModel', 'Converter'], function (Conve
 
             //then;
             expect(model.conversionResult).toBe('110100111');
+        });
+
+        it('should clear result', function () {
+
+            //given
+            model.updateConversionResult('666');
+
+            //when
+            controller.clearResult();
+
+            //then;
+            expect(model.conversionResult).toBe('');
         });
     });
 
