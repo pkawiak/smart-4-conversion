@@ -1,13 +1,15 @@
-define(['ConversionController', 'ConversionModel', 'Converter'], function (ConversionController, ConversionModel, Converter) {
+define(['ConversionController', 'ConversionModel', 'Converter', 'DigitsExtractor'], function (ConversionController, ConversionModel, Converter, DigitsExtractor) {
 
     describe('Conversion Controller Spec', function () {
 
         var controller,
             model,
-            converter;
+            converter,
+            digitsExtractor;
 
         beforeEach(function () {
-            converter = new Converter();
+            digitsExtractor = new DigitsExtractor();
+            converter = new Converter(digitsExtractor);
             model = new ConversionModel();
             controller = new ConversionController(model, converter);
         });

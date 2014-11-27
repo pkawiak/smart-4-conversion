@@ -1,11 +1,13 @@
-define(['Converter'], function (Converter) {
+define(['Converter', 'DigitsExtractor'], function (Converter, DigitsExtractor) {
 
     describe('Converter Spec', function () {
 
-        var converter;
+        var converter,
+            digitsExtractor;
 
         beforeEach(function () {
-            converter = new Converter();
+            digitsExtractor = new DigitsExtractor();
+            converter = new Converter(digitsExtractor);
         });
 
         it('should convert from 10', function () {

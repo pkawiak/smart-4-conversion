@@ -1,10 +1,8 @@
 define(function () {
 
-    var INPUT_BASE_INVALID_MESSAGE = 'Input Base should be positive integer greater than 1',
-        OUTPUT_BASE_INVALID_MESSAGE = 'Output Base should be positive integer greater than 1';
-
-    var ConversionModelValidator = function (model) {
+    var ConversionModelValidator = function (model, digitsExtractor) {
         this.model = model;
+        this.digitsExtractor = digitsExtractor;
         this.messages = [];
         this.isValid = false;
     };
@@ -14,13 +12,14 @@ define(function () {
         this.messages = [];
         this.validateInputBase();
         this.validateOutputBase();
+        this.validateNumberToConvert();
     };
 
     ConversionModelValidator.prototype.validateInputBase = function () {
         var valid = parseInt(this.model.inputBase) > 1;
 
         if (!valid) {
-            this.messages.push(INPUT_BASE_INVALID_MESSAGE);
+            this.messages.push('Input Base should be positive integer greater than 1.');
         }
 
         this.isValid = this.isValid && valid;
@@ -30,10 +29,53 @@ define(function () {
         var valid = parseInt(this.model.outputBase) > 1;
 
         if (!valid) {
-            this.messages.push(OUTPUT_BASE_INVALID_MESSAGE);
+            this.messages.push('Output Base should be positive integer greater than 1.');
         }
 
         this.isValid = this.isValid && valid;
+    };
+
+    ConversionModelValidator.prototype.validateNumberToConvert = function () {
+        var i,
+            valid,
+            digits,
+            message,
+            toConvert,
+            offendingDigit;
+
+        valid = true;
+        toConvert = this.model.numberToConvert || '';
+        digits = toConvert.split('');
+
+        if (digits.length) {
+            for (i = 0; i < digits.length; i++) {
+                if (!this.isValidDigit(digits[i])) {
+                    offendingDigit = digits[i];
+                    valid = false;
+                    break;
+                }
+            }
+        } else {
+            valid = false;
+        }
+
+        if (!valid) {
+            message = 'Number to convert should be valid positive number in Input Base.';
+            if (offendingDigit) {
+                message += ' Offending digit: ' + offendingDigit;
+            }
+            this.messages.push(message);
+        }
+
+        this.isValid = this.isValid && valid;
+    };
+
+    ConversionModelValidator.prototype.isValidDigit = function (digit) {
+        var multiplier;
+
+        multiplier = this.digitsExtractor.getMultiplierFromDigit(digit);
+
+        return multiplier >= 0 && multiplier < this.model.inputBase;
     };
 
     return ConversionModelValidator;

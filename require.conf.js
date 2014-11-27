@@ -8,6 +8,7 @@ require.config({
         ConversionModel: '../src/modules/conversion/model',
         ConversionModelValidator: '../src/modules/conversion/validator',
         ConversionController: '../src/modules/conversion/controller',
+        DigitsExtractor: '../src/modules/conversion/digitsExtractor',
         Converter: '../src/modules/conversion/converter'
     }
 
