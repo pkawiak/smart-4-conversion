@@ -16,6 +16,10 @@ module.exports = function (grunt) {
                         {
                             name: "app",
                             out: "app.js"
+                        },
+                        {
+                            name: "multi",
+                            out: "multi.js"
                         }
                     ]
                 }
