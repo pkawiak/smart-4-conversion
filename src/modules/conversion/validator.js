@@ -36,8 +36,7 @@ define(function () {
     };
 
     ConversionModelValidator.prototype.validateNumberToConvert = function () {
-        var i,
-            valid,
+        var valid,
             digits,
             message,
             toConvert,
@@ -48,13 +47,8 @@ define(function () {
         digits = toConvert.split('');
 
         if (digits.length) {
-            for (i = 0; i < digits.length; i++) {
-                if (!this.isValidDigit(digits[i])) {
-                    offendingDigit = digits[i];
-                    valid = false;
-                    break;
-                }
-            }
+            offendingDigit = this.getFirstInvalidDigit(digits);
+            valid = !offendingDigit;
         } else {
             valid = false;
         }
@@ -68,6 +62,18 @@ define(function () {
         }
 
         this.isValid = this.isValid && valid;
+    };
+
+    ConversionModelValidator.prototype.getFirstInvalidDigit = function (digits) {
+        var i;
+
+        for (i = 0; i < digits.length; i++) {
+            if (!this.isValidDigit(digits[i])) {
+                return digits[i];
+            }
+        }
+
+        return null;
     };
 
     ConversionModelValidator.prototype.isValidDigit = function (digit) {
